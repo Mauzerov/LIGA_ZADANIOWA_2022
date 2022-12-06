@@ -59,6 +59,7 @@ class StringMenu:
                 is_key = True
         print('\n')
         self.options[selected][1]()
+        print()
 
 
 class Calculator:
@@ -112,15 +113,17 @@ class Calculator:
     @staticmethod
     def binary():
         a = try_input("Podaj liczbę:", convert=int, error="Proszę wprowadzić prawidłową liczbę")
-        pass
+        print("Wynik", bin(a)[2:])
 
     @staticmethod
     def octal():
-        pass
+        a = try_input("Podaj liczbę:", convert=int, error="Proszę wprowadzić prawidłową liczbę")
+        print("Wynik", oct(a)[2:])
 
     @staticmethod
     def hexadecimal():
-        pass
+        a = try_input("Podaj liczbę:", convert=int, error="Proszę wprowadzić prawidłową liczbę")
+        print("Wynik", hex(a)[2:])
 
 
 while True:
