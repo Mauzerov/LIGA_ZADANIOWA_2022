@@ -1,0 +1,81 @@
+.clock {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Segment Container */
+.s7d-digit {
+  --enabled: red;
+  --disabled: black;
+  --segment-height: 1em;
+  --segment-width: 4em;
+  --padding-inline: .5em;
+  --padding-block: 1em;
+  --clip: calc(min(var(--segment-height), var(--segment-width)) * .5);
+  --clip1: calc(var(--clip) * .5);
+  --clip2: calc(100% - var(--clip1));
+  width: calc(2 * var(--segment-height) + var(--segment-width));
+  height: calc(2 * var(--segment-width) + 3 * var(--segment-height));
+  display: grid;
+  grid-template-columns: var(--segment-height) var(--segment-width) var(--segment-height);
+  grid-template-rows: var(--segment-height) var(--segment-width) var(--segment-height) var(--segment-width) var(--segment-height);
+  background: #090909;
+  padding-inline: var(--padding-inline);
+  padding-block: var(--padding-block);
+}
+
+/* Segment Styling */
+.s7d-digit > * {
+  background: var(--disabled);
+  clip-path: polygon(var(--clip1) 0%, var(--clip2) 0%, 100% var(--clip1), 100% var(--clip2), var(--clip2) 100%, var(--clip1) 100%, 0% var(--clip2), 0% var(--clip1));
+}
+
+/* Positions Of Segments */
+.s7d-digit > :is(:nth-child(1), :nth-child(3)) {
+  grid-row: 2;
+}
+.s7d-digit > :nth-child(4) {
+  grid-row: 3;
+}
+.s7d-digit > :is(:nth-child(5), :nth-child(6)) {
+  grid-row: 4;
+}
+.s7d-digit > :nth-child(7) {
+  grid-row: 5;
+}
+.s7d-digit > :is(:nth-child(1), :nth-child(5)) {
+  grid-column: 1;
+}
+.s7d-digit > :is(:nth-child(2), :nth-child(4), :nth-child(7)) {
+  grid-column: 2;
+}
+.s7d-digit > :is(:nth-child(3), :nth-child(6)) {
+  grid-column: 3;
+}
+
+/* Segments States Colors */
+:is(.s7d-digit[data-value="0"],
+.s7d-digit[data-value="2"],
+.s7d-digit[data-value="3"],
+.s7d-digit[data-value="4"],
+.s7d-digit[data-value="5"],
+.s7d-digit[data-value="6"],
+.s7d-digit[data-value="8"],
+.s7d-digit[data-value="9"]) > * {
+  background: var(--enabled);
+}
+
+.s7d-digit[data-value="1"] > :is(:nth-of-type(3), :nth-of-type(6)),
+.s7d-digit[data-value="7"] > :is(:nth-of-type(2), :nth-of-type(3), :nth-of-type(6)) {
+  background: var(--enabled);
+}
+
+.s7d-digit[data-value="2"] > :is(:nth-of-type(1), :nth-of-type(6)),
+.s7d-digit[data-value="3"] > :is(:nth-of-type(1), :nth-of-type(5)),
+.s7d-digit[data-value="5"] > :is(:nth-of-type(3), :nth-of-type(5)),
+.s7d-digit[data-value="4"] > :is(:nth-of-type(2), :nth-of-type(5), :nth-of-type(7)),
+.s7d-digit[data-value="0"] > :nth-of-type(4),
+.s7d-digit[data-value="6"] > :nth-of-type(3),
+.s7d-digit[data-value="9"] > :nth-of-type(5) {
+  background: var(--disabled);
+}

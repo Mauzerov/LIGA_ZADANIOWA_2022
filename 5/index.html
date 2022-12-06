@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pomorska Liga Zadaniowa – Zdolni z Pomorza</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="clock.css">
+    <link rel="icon" href="favicon.ico">
+    <script src="clock.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">Strona Główna</a></li>
+                <li><a href="#">Kalendarz</a></li>
+                <li><a href="#">Galeria</a></li>
+                <li><a href="#">Kontakt</a></li>
+            </ul>
+        </nav>
+        <div>
+            <img src="favicon.ico" alt="logo">
+            <h1>Pomorska Liga Zadaniowa – Zdolni z Pomorza</h1>
+        </div>
+    </header>
+    <main>
+        {{ dynamic content }}
+        {{ display none using :target or sth (anchor access)}}
+        <section class="main">
+            {{ general info }}
+            {{ ul, ol }}
+            {{ sound }}
+        </section>
+        <section class="calendar">
+            {{ calendar }}
+            {{ adding removing (localStorage )}
+            {{ table based }}
+            {{ }}
+        </section>
+        <section class="gallery">
+            {{ simple image carousel }}
+        </section>
+        <section>
+            {{ form doing something }}
+        </section>
+    </main>
+    <div class="clock">
+
+    </div>
+</body>
+</html>
