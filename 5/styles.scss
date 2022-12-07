@@ -1,3 +1,11 @@
 *, *::after, *::before {
   box-sizing: content-box;
 }
+
+main > section:not(:target) {
+  display: none;
+}
+
+main > section:not(:has(:target)):first-child {
+  display: block;
+}

@@ -16,10 +16,10 @@
     <header>
         <nav>
             <ul>
-                <li><a href="#">Strona Główna</a></li>
-                <li><a href="#">Kalendarz</a></li>
-                <li><a href="#">Galeria</a></li>
-                <li><a href="#">Kontakt</a></li>
+                <li><a href="#home">Strona Główna</a></li>
+                <li><a href="#calendar">Kalendarz</a></li>
+                <li><a href="#gallery">Galeria</a></li>
+                <li><a href="#form">Kontakt</a></li>
             </ul>
         </nav>
         <div>
@@ -30,21 +30,21 @@
     <main>
         {{ dynamic content }}
         {{ display none using :target or sth (anchor access)}}
-        <section class="main">
+        <section class="main" id="home">
             {{ general info }}
             {{ ul, ol }}
             {{ sound }}
         </section>
-        <section class="calendar">
+        <section class="calendar" id="calendar">
             {{ calendar }}
             {{ adding removing (localStorage )}
             {{ table based }}
             {{ }}
         </section>
-        <section class="gallery">
+        <section class="gallery" id="gallery">
             {{ simple image carousel }}
         </section>
-        <section>
+        <section class="form" id="form">
             {{ form doing something }}
         </section>
     </main>
