@@ -15,7 +15,7 @@ def try_input(
             return convert(value)
         except ValueError:
             if error is not None:
-                print(error, end='')
+                print(error, end=' ')
 
 
 class Player:
@@ -65,11 +65,11 @@ class Frame:
 
     def __init__(self, number: int, players: [Player], on_frame_end: typing.Callable = lambda: None):
         self.number = number
-        print(f"Frame {number}")
+        print(f"Runda {number}")
         for player in players:
             multiplier = player.get_multiplier_and_reduce()
 
-            pins = try_input(f"Player {player.number} shoot: ",
+            pins = try_input(f"Zbite Kręgle Gracza {player.number}: ",
                              check=lambda x: 0 <= int(x) <= 10, convert=int,
                              error="Wprowadź ponownie")
 
@@ -81,7 +81,7 @@ class Frame:
                 player.score += pins + (pins * multiplier)
                 player.throws[-1] += pins + (pins * multiplier)
                 multiplier = player.get_multiplier_and_reduce()
-                pins = try_input(f"Player {player.number} shoot: ",
+                pins = try_input(f"Zbite Kręgle Gracza {player.number}: ",
                                  check=lambda x: 0 <= int(x) <= throw.pins, convert=int,
                                  error="Wprowadź ponownie")
                 if throw(pins):
@@ -95,7 +95,7 @@ class Frame:
             if number == Frame.COUNT:
                 if throw.pins == 0:
                     multiplier = player.get_multiplier_and_reduce()
-                    pins = try_input(f"Player {player.number} shoot: ",
+                    pins = try_input(f"Zbite Kręgle Gracza {player.number}: ",
                                      check=lambda x: 0 <= int(x) <= 10, convert=int,
                                      error="Wprowadź ponownie")
                     if pins == 10:
@@ -107,22 +107,27 @@ class Frame:
 class Game:
     def __init__(self, players: ['Player']):
         self.players = players
-        self.frames = [Frame(i, players, self.scoreboard) for i in range(1, Frame.COUNT + 1)]
+        self.frames = (Frame(i, players) for i in range(1, Frame.COUNT + 1))
+
+    def play(self):
+        for frame in self.frames:
+            self.scoreboard()
 
     def scoreboard(self):
-        print("-------" + "-" * len(str(len(self.players))) + "+-" + \
-              "-" * len(str(max(self.players, key=lambda x: x.score).score)))
+        break_string = ("-------" + "-" * len(str(len(self.players))) + "+-" +
+                        "-" * len(str(max(self.players, key=lambda x: x.score).score)))
+        print(break_string)
         for i, player in enumerate(self.players):
             print(f"Gracz {i + 1} | {player.score}")
+        print(break_string)
 
 
 def main():
-    players = [Player() for _ in range(try_input("Ile graczy? ", check=lambda x: 0 < int(x) <= 4, convert=int))]
+    players = [Player() for _ in range(
+        try_input("Ile graczy (1-4)? ", check=lambda x: 0 < int(x) <= 4, convert=int, error="Wprowadź ponownie"))]
     for i, player in enumerate(players):
         player.number = i + 1
-    game = Game(players)
-    #game.scoreboard()
-
+    Game(players).play()
     print("Wygrał gracz numer", max(players, key=lambda x: x.score).number)
 
 
