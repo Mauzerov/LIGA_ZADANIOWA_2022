@@ -1,5 +1,59 @@
 *, *::after, *::before {
-  box-sizing: content-box;
+  box-sizing: border-box;
+  color: #2c2c54;//#030303;
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: #f6f3ec; //#FFF7F0;
+}
+
+nav {
+  width: fit-content;
+  margin: auto;
+  ul {
+    padding-inline: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    & > li {
+      list-style: none;
+      font-weight: bold;
+      font-size: larger;
+
+      & > a {
+        text-decoration: none;
+
+        &:hover, &:active {
+          border-bottom: 2px solid #40407a//#3372B1;
+        }
+      }
+      padding-inline: 1.5em;
+
+      &:not(:last-child) {
+        border-right: 1px solid currentColor;
+      }
+    }
+
+    padding-bottom: 1em;
+    border-bottom: 2px solid #40407a//#3372B1;
+  }
+}
+
+header > div {
+  & img {
+    height: 10em;
+  }
+
+  & h1 {
+    font-size: 2.5em;
+    font-weight: 700;
+    text-align: center;
+  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 main > section:not(:target) {
@@ -8,4 +62,8 @@ main > section:not(:target) {
 
 main > section:not(:has(:target)):first-child {
   display: block;
+}
+
+main > section {
+
 }

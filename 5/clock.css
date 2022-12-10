@@ -2,6 +2,9 @@
   display: flex;
   flex-wrap: wrap;
 }
+.clock * {
+  box-sizing: content-box;
+}
 
 /* Segment Container */
 .s7d-digit {

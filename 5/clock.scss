@@ -1,6 +1,9 @@
 .clock {
   display: flex;
   flex-wrap: wrap;
+  * {
+    box-sizing: content-box;
+  }
 }
 
 /* Segment Container */
