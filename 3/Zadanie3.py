@@ -1,20 +1,6 @@
 import typing
 from typing import Callable
-import msvcrt as kb
-
-try:
-    from msvcrt import getwch
-except ImportError:
-    def getch() -> str:
-        import tty, sys, termios
-        fd = sys.stdin.fileno()
-        old_settings = termios.tcgetattr(fd)
-        try:
-            tty.setraw(sys.stdin.fileno())
-            ch = sys.stdin.read(1)
-        finally:
-            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-        return ch
+from msvcrt import getwch
 
 
 def try_input(
@@ -56,7 +42,6 @@ class StringMenu:
         is_key = False
         print("Wybrano (↓↑):", self.options[selected][0], end='', flush=True)
         while (char := getwch()) != '\r':
-            print(repr(char))
             if is_key:
                 is_key = False
                 key_code = ord(char)
@@ -70,7 +55,7 @@ class StringMenu:
                     selected = min(selected + 1, len(self.options) - 1)
                     print(self.options[selected][0], end='')
                 print(flush=True, end='')
-            if char in ('\x1b', '\xe0'):
+            if char == '\xe0':
                 is_key = True
         print('\n')
         self.options[selected][1]()

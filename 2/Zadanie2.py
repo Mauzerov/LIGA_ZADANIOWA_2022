@@ -1,20 +1,7 @@
 from random import choice
 from typing import Any, Type
 from typing import Callable
-
-try:
-    from msvcrt import getwche
-except ImportError:
-    def getwche() -> str:
-        import tty, sys, termios
-        fd = sys.stdin.fileno()
-        old_settings = termios.tcgetattr(fd)
-        try:
-            tty.setraw(sys.stdin.fileno())
-            ch = sys.stdin.read(1)
-        finally:
-            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-        return ch
+from msvcrt import getwche
 
 
 def exit_input(prompt: str = '', /, on_esc=lambda: None) -> str:
