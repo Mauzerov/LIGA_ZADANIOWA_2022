@@ -2,12 +2,26 @@ import typing
 from typing import Callable
 import msvcrt as kb
 
+try:
+    from msvcrt import getwch
+except ImportError:
+    def getch() -> str:
+        import tty, sys, termios
+        fd = sys.stdin.fileno()
+        old_settings = termios.tcgetattr(fd)
+        try:
+            tty.setraw(sys.stdin.fileno())
+            ch = sys.stdin.read(1)
+        finally:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+        return ch
+
 
 def try_input(
-    prompt, /,
-    check: Callable[[str], bool] = lambda _: True,
-    convert: typing.Type = str,
-    error: str | None = None
+        prompt, /,
+        check: Callable[[str], bool] = lambda _: True,
+        convert: typing.Type = str,
+        error: str = None
 ) -> typing.Any:
     print(prompt, end=' ')
     while True:
@@ -41,10 +55,11 @@ class StringMenu:
         selected = 0
         is_key = False
         print("Wybrano (↓↑):", self.options[selected][0], end='', flush=True)
-        while (char := kb.getch()) != b'\r':
+        while (char := getwch()) != '\r':
+            print(repr(char))
             if is_key:
                 is_key = False
-                key_code = ord(char.decode('utf-8'))
+                key_code = ord(char)
                 last_size = len(self.options[selected][0])
                 if key_code == 72:
                     print('\b \b' * last_size, end='')
@@ -55,7 +70,7 @@ class StringMenu:
                     selected = min(selected + 1, len(self.options) - 1)
                     print(self.options[selected][0], end='')
                 print(flush=True, end='')
-            if char == b'\xe0':
+            if char in ('\x1b', '\xe0'):
                 is_key = True
         print('\n')
         self.options[selected][1]()
@@ -64,9 +79,9 @@ class StringMenu:
 
 class Calculator:
     @staticmethod
-    def ask_two_numbers(format_prompt: str, convert: typing.Type=float):
+    def ask_two_numbers(format_prompt: str, convert: typing.Type = float):
         a, b = \
-            try_input(format_prompt % 1, convert=convert, error="Proszę wprowadzić prawidłową liczbę"),\
+            try_input(format_prompt % 1, convert=convert, error="Proszę wprowadzić prawidłową liczbę"), \
             try_input(format_prompt % 2, convert=convert, error="Proszę wprowadzić prawidłową liczbę")
         if a.is_integer(): a = int(a)
         if b.is_integer(): b = int(b)
@@ -97,7 +112,7 @@ class Calculator:
     @staticmethod
     def power():
         a = try_input("Podaj podstawę potengi:", convert=float, error="Proszę wprowadzić prawidłową liczbę")
-        b = try_input("Podaj licznik:", check=lambda x: not(float(x) == a == 0),
+        b = try_input("Podaj licznik:", check=lambda x: not (float(x) == a == 0),
                       convert=float, error="Proszę wprowadzić prawidłową liczbę")
 
         print(f"Wynik ({a} ^ {b}) = {a ** b}")
@@ -127,15 +142,15 @@ class Calculator:
 
 
 while True:
-    StringMenu()\
-        .add_option("Dodawanie", Calculator.addition)\
-        .add_option("Odejmowanie", Calculator.subtraction)\
-        .add_option('Mnożenie', Calculator.multiplication)\
-        .add_option('Dzielenie', Calculator.division)\
-        .add_option('Potęgowanie', Calculator.power)\
-        .add_option('Silnia', Calculator.factorial)\
-        .add_option('System binarny (dwójkowy)', Calculator.binary)\
-        .add_option('System oktalny (usemkowy)', Calculator.octal)\
-        .add_option('System heksadecymalny (szesnastkowy)', Calculator.hexadecimal)\
-        .add_option('Wyjście z programu', exit)\
+    StringMenu() \
+        .add_option("Dodawanie", Calculator.addition) \
+        .add_option("Odejmowanie", Calculator.subtraction) \
+        .add_option('Mnożenie', Calculator.multiplication) \
+        .add_option('Dzielenie', Calculator.division) \
+        .add_option('Potęgowanie', Calculator.power) \
+        .add_option('Silnia', Calculator.factorial) \
+        .add_option('System binarny (dwójkowy)', Calculator.binary) \
+        .add_option('System oktalny (usemkowy)', Calculator.octal) \
+        .add_option('System heksadecymalny (szesnastkowy)', Calculator.hexadecimal) \
+        .add_option('Wyjście z programu', exit) \
         .ask_and_do()

@@ -1,17 +1,29 @@
-from typing import Any, Type
 from random import choice
-import msvcrt
+from typing import Any, Type
 from typing import Callable
+
+try:
+    from msvcrt import getwche
+except ImportError:
+    def getwche() -> str:
+        import tty, sys, termios
+        fd = sys.stdin.fileno()
+        old_settings = termios.tcgetattr(fd)
+        try:
+            tty.setraw(sys.stdin.fileno())
+            ch = sys.stdin.read(1)
+        finally:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+        return ch
 
 
 def exit_input(prompt: str = '', /, on_esc=lambda: None) -> str:
     value = ''
     print(prompt, end='', flush=True)
-    while (char := msvcrt.getwche()) != '\r':
+    while (char := getwche()) != '\r':
         if char == '\b':
             value = value[:-1]
-            msvcrt.putwch(' ')
-            msvcrt.putwch('\b')
+            print('\b', end=' ', flush=True)
             continue
         if char == '\x1b':
             on_esc()
