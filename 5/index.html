@@ -58,7 +58,44 @@
             {{ }}
         </section>
         <section class="gallery" id="gallery">
-            {{ simple image carousel }}
+            <div class="carousel">
+                <button class="carousel__control carousel__control--left" aria-label="Previous slide" data-value="-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                        <path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
+                    </svg>
+                </button>
+                <div class="carousel__container">
+                    <div class="carousel__item active">
+                        <img loading="lazy" src="https://zdolnizpomorza.pl/images/GALERIA/LIGA_ZADANIOWA/Gdansk/_DSC7370.jpg"  alt="1">
+                    </div>
+                    <div class="carousel__item">
+                        <img loading="lazy" src="https://zdolnizpomorza.pl/images/GALERIA/LIGA_ZADANIOWA/Gdansk/_DSC7371.jpg" alt="2">
+                    </div>
+                    <div class="carousel__item">
+                        <img loading="lazy" src="https://zdolnizpomorza.pl/images/GALERIA/LIGA_ZADANIOWA/Gdansk/_DSC7379.jpg" alt="3">
+                    </div>
+                    <div class="carousel__item">
+                        <img loading="lazy" src="https://zdolnizpomorza.pl/images/GALERIA/LIGA_ZADANIOWA/Gdansk/_DSC7373.jpg" alt="4">
+                    </div>
+                    <div class="carousel__item">
+                        <img loading="lazy" src="https://zdolnizpomorza.pl/images/GALERIA/LIGA_ZADANIOWA/Gdansk/_DSC7374.jpg" alt="5">
+                    </div>
+                    <div class="carousel__item">
+                        <img loading="lazy" src="https://zdolnizpomorza.pl/images/GALERIA/LIGA_ZADANIOWA/Gdansk/_DSC7375.jpg" alt="6">
+                    </div>
+                    <div class="carousel__item">
+                        <img loading="lazy" src="https://zdolnizpomorza.pl/images/GALERIA/LIGA_ZADANIOWA/Gdansk/_DSC7376.jpg" alt="7">
+                    </div>
+                    <div class="carousel__item">
+                        <img loading="lazy" src="https://zdolnizpomorza.pl/images/GALERIA/LIGA_ZADANIOWA/Gdansk/_DSC7377.jpg" alt="8">
+                    </div>
+                </div>
+                <button class="carousel__control carousel__control--right" aria-label="Next slide" data-value="1">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                        <path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
+                    </svg>
+                </button>
+            </div>
         </section>
         <section class="form" id="form">
             {{ form doing something }}
