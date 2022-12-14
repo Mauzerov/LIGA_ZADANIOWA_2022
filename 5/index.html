@@ -10,9 +10,11 @@
     <link rel="stylesheet" href="clock.css">
     <link rel="icon" href="favicon.ico">
     <script src="clock.js"></script>
+    <script src="calendar.js"></script>
     <script src="script.js" defer></script>
 </head>
 <body>
+    <div class="clock"></div>
     <header>
         <nav>
             <ul>
@@ -30,12 +32,10 @@
         </div>
     </header>
     <main>
-        {{ dynamic content }}
-        {{ display none using :target or sth (anchor access)}}
         <section class="main" id="home">
-            {{ general info }}
-            {{ ul, ol }}
-            {{ sound }}
+            <audio controls loop>
+                <source src="Alarm05.wav" type="audio/wav">
+            </audio>
             <ul>
                 <li>Konkurs organizowany jest w ramach projektu Zdolni z Pomorza i zakłada popularyzację przedmiotów ścisłych oraz tych, które rozwijają kompetencje społeczne. </li>
                 <li>Organizatorem konkursu jest Pomorski Ośrodek Doskonalenia Nauczycieli w Słupsku.</li>
@@ -50,12 +50,66 @@
                 <li>matematyka,</li>
                 <li>przedmioty rozwijające kompetencje społeczne.</li>
             </ol>
+            <p>
+                Konkurs jest bezpłatny dla uczestników. Szkoła zobowiązana jest jedynie do organizacji etapu szkolnego.
+                Prace uczniów na etapie kwalifikacyjnym (szkolnym) sprawdza komisja wyznaczona przez dyrektora szkoły.
+                Zgłoszenia dokonuje dyrektor szkoły lub osoba wyznaczona przez dyrektora.
+                Istnieje również możliwość zgłoszeń indywidualnych, w przypadku, gdy szkoła, do której uczęszcza uczeń, nie bierze udziału w konkursie.
+            </p>
+            <table>
+                <thead>
+                <tr>
+                    <th colspan="3">Adresy Kontaktowe</th>
+                </tr>
+                <tr>
+                    <th>Przedmiot</th>
+                    <th>Szkoła Podstawowa</th>
+                    <th>Szkoła Ponadpodstawowa</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Biologia</td>
+                    <td><a href="mailto:biologia_plz_SP@podn.slupsk.pl">biologia_plz_SP@podn.slupsk.pl</a></td>
+                    <td><a href="mailto:biologia_plz_Pp@podn.slupsk.pl">biologia_plz_Pp@podn.slupsk.pl</a></td>
+                </tr>
+                <tr>
+                    <td>Chemia</td>
+                    <td><a href="mailto:chemia_plz_SP@podn.slupsk.pl">chemia_plz_SP@podn.slupsk.pl</a></td>
+                    <td><a href="mailto:chemia_plz_Pp@podn.slupsk.pl">chemia_plz_Pp@podn.slupsk.pl</a></td>
+                </tr>
+                <tr>
+                    <td>Fizyka</td>
+                    <td><a href="mailto:fizyka_plz_SP@podn.slupsk.pl">fizyka_plz_SP@podn.slupsk.pl</a></td>
+                    <td><a href="mailto:fizyka_plz_Pp@podn.slupsk.pl">fizyka_plz_Pp@podn.slupsk.pl</a></td>
+                </tr>
+                <tr>
+                    <td>Matematyka</td>
+                    <td><a href="mailto:matematyka_plz_SP@podn.slupsk.pl">matematyka_plz_SP@podn.slupsk.pl</a></td>
+                    <td><a href="mailto:matematyka_plz_Pp@podn.slupsk.pl">matematyka_plz_Pp@podn.slupsk.pl</a></td>
+                </tr>
+                <tr>
+                    <td>Informatyka</td>
+                    <td><a href="mailto:informatyka_plz_SP@podn.slupsk.pl">informatyka_plz_SP@podn.slupsk.pl</a></td>
+                    <td><a href="mailto:informatyka_plz_Pp@podn.slupsk.pl">informatyka_plz_Pp@podn.slupsk.pl</a></td>
+                </tr>
+                <tr>
+                    <td>Przedmioty rozwijające<br>kompetencje społ.</td>
+                    <td><a href="mailto:kompetencje_plz_SP@podn.slupsk.pl">kompetencje_plz_SP@podn.slupsk.pl</a></td>
+                    <td><a href="mailto:kompetencje_plz_Pp@podn.slupsk.pl">kompetencje_plz_Pp@podn.slupsk.pl</a></td>
+                </tr>
+                </tbody>
+            </table>
         </section>
         <section class="calendar" id="calendar">
-            {{ calendar }}
-            {{ adding removing (localStorage )}
-            {{ table based }}
-            {{ }}
+            <div class="calendar_control">
+                <button>&lt;</button>
+                <div class="current_month_display"></div>
+                <button>&gt;</button>
+            </div>
+            <div class="calendar_holder">
+
+            </div>
         </section>
         <section class="gallery" id="gallery">
             <div class="carousel">
@@ -98,11 +152,52 @@
             </div>
         </section>
         <section class="form" id="form">
-            {{ form doing something }}
+            <form action="javascript:void(0)" onsubmit="document.write(JSON.stringify(Object.fromEntries(new FormData(this).entries())))">
+                <fieldset>
+                    <legend>Przedmiot i szkoła</legend>
+                    <label>
+                        Przedmiot:
+                        <select name="przedmiot" required>
+                            <option>Biologia</option>
+                            <option>Chemia</option>
+                            <option>Fizyka</option>
+                            <option>Matematyka</option>
+                            <option>Informatyka</option>
+                            <option>Przedmioty rozwijające kompetencje społ.</option>
+                        </select>
+                    </label>
+                    <label>
+                        Szkoła:
+                        <select name="szkola" required>
+                            <option>Podstawowa</option>
+                            <option>Ponadpodstawowa</option>
+                        </select>
+                    </label>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Dane Osobowe</legend>
+                    <label>
+                        Imie:
+                        <input type="text" name="imie" required>
+                    </label>
+                    <label>
+                        Nazwisko
+                        <input type="text" name="nazwisko" required>
+                    </label>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Wiadomość</legend>
+                    <textarea name="wiadomosc" required>
+
+                    </textarea>
+                </fieldset>
+                <div class="form_button_holder">
+                    <button>Wyślij</button>
+                </div>
+            </form>
         </section>
     </main>
-    <div class="clock">
-
-    </div>
 </body>
 </html>

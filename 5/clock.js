@@ -16,6 +16,8 @@ class Clock {
         let hours = this.time.getHours()
         this.#digits[n - 5].dataset.value = `${hours % 10}`
         this.#digits[n - 6].dataset.value = `${parseInt(hours / 10) % 10}`
+
+        localStorage.setItem('clockState', `${this.time.getSeconds()}`)
     }
 
     constructor(clockHolder) {
@@ -34,5 +36,10 @@ class Clock {
             it.dataset.value = '0'
             clockHolder.append(it)
         })
+
+        if (localStorage.getItem('clockState')) {
+            this.time.setSeconds(parseInt(localStorage.getItem('clockState')))
+            this.increment(0)
+        }
     }
 }

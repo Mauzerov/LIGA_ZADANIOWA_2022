@@ -1,8 +1,27 @@
 .clock {
+  position: fixed;
+  z-index: 9999;
+  bottom: 0;
+  left: 0;
+
   display: flex;
   flex-wrap: wrap;
   * {
     box-sizing: content-box;
+  }
+  > * {
+    position: relative;
+  }
+
+  > *:nth-child(2n):not(:last-child)::after {
+    position: absolute;
+    content: ':';
+    left: calc(100% - .175em);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10000;
+    font-size: 1.5em;
+    color: red;
   }
 }
 
@@ -10,10 +29,10 @@
 .s7d-digit {
   --enabled: red;
   --disabled: black;
-  --segment-height: 1em;
-  --segment-width: 4em;
-  --padding-inline: .5em;
-  --padding-block: 1em;
+  --segment-height: .25em;
+  --segment-width: 1em;
+  --padding-inline: .125em;
+  --padding-block: .25em;
 
   --clip: calc(min(var(--segment-height), var(--segment-width)) * .5);
   --clip1: calc(var(--clip) * .5);
@@ -27,6 +46,7 @@
   background: #090909;
   padding-inline: var(--padding-inline);
   padding-block: var(--padding-block);
+
 }
 
 /* Segment Styling */
