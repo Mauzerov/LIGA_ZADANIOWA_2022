@@ -39,12 +39,11 @@ class Calendar {
         const nullableCalendarData = localStorage.getItem("calendarData")
         if (nullableCalendarData == null) {
             this.calendarData = []
-            return
+        } else {
+            const calendarData = JSON.parse(nullableCalendarData)
+            this.calendarData = calendarData
+            console.log(calendarData)
         }
-
-        const calendarData = JSON.parse(nullableCalendarData)
-        this.calendarData = calendarData
-        console.log(calendarData)
 
         this.generate()
     }
