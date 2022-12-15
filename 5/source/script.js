@@ -35,6 +35,5 @@ const [left, right] = document.querySelector('.calendar_control').querySelectorA
 
 // Firefox doesn't support :has() yet
 if (!CSS.supports(':has(div)')) {
-    console.error('Your browser is not supported')
     document.querySelector('main section.main').style.display = 'block';
 }
