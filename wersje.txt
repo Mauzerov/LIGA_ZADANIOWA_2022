@@ -1,0 +1,3 @@
+python 3.10 >=
+
+Zadanie2 i Zadanie3 nie jest dostosowane pod system linux
