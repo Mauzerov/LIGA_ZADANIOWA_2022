@@ -31,3 +31,10 @@ const call = new Calendar(document.querySelector('.calendar_holder'))
 const [left, right] = document.querySelector('.calendar_control').querySelectorAll('button')
     left.onclick = () => { call.selectMonth(-1) }
     right.onclick = () => { call.selectMonth(1) }
+
+
+// Firefox doesn't support :has() yet
+if (!CSS.supports(':has(div)')) {
+    console.error('Your browser is not supported')
+    document.querySelector('main section.main').style.display = 'block';
+}

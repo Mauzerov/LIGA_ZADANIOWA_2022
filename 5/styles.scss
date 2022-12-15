@@ -234,7 +234,7 @@ table {
       padding: .5em;
     }
 
-    td:has(a) {
+    td:not(:first-child) {
       text-align: center;
     }
 
@@ -258,6 +258,11 @@ form {
 
   input, textarea, select {
     font-size: 1.15em;
+  }
+
+  textarea {
+    width: 100%;
+    height: 100px;
   }
 
   position: relative;

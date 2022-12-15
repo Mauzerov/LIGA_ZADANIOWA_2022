@@ -144,12 +144,21 @@ function createMonthDays(holder) {
     const year = new Date().getFullYear() % 4 === 0
     const monthNumber = parseInt(holder.dataset.monthNumber)
     const days = [31, 28 + year, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][monthNumber - 1]
+    const today = new Date()
+
+    const monthOffset = new Date(today.getFullYear(), monthNumber - 1, 1).getDay() + 6 % 7
+
+    for (let i = 0; i < monthOffset; i++) {
+        const day = document.createElement('div')
+        day.classList.add('day')
+        holder.append(day)
+    }
+
     for (let i = 1; i <= days; i++) {
         const day = document.createElement('div')
         day.classList.add('month_day')
         day.dataset.date = `${i}-${monthNumber}`
 
-        const today = new Date()
         const dayNumberDate = new Date(today.getFullYear(), monthNumber - 1, i)
         day.dataset.dayname = [
             "Niedziela",
